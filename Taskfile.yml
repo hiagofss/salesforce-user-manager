@@ -1,0 +1,17 @@
+version: "3"
+
+env:
+  APP_NAME: Salesforce User Manager
+
+tasks:
+  run-app:
+    cmds:
+      - docker compose up app --build --force-recreate
+  run-local:
+    dir: backend
+    cmds:
+      - go run cmd/app/main.go
+  test:
+    dir: backend
+    cmds:
+      - go test ./tests/...

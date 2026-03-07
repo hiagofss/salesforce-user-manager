@@ -1,0 +1,33 @@
+name: salesforce-user-manager
+services:
+  app:
+    container_name: app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.local
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    # depends_on:
+    #   - mongodb
+    healthcheck:
+      test: "wget --spider -q http://localhost:${PORT}/health || exit 1"
+      interval: 180s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+    env_file: .env
+
+volumes:
+  mongo_data:
