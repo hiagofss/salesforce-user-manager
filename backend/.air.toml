@@ -4,7 +4,7 @@ tmp_dir = "tmp"
 
 [build]
 cmd = "go build -o tmp/main ./cmd/app/"
-bin = "tmp/main"
+entrypoint = "tmp/main"
 include_ext = ["go"]
 exclude_dir = ["vendor", "tmp"]
 exclude_file = ["README.md"]
